@@ -7,4 +7,4 @@
 /your/path/box64 ./7z b -mm=* -mmt=*
 ```
 
-Please read [b (Benchmark) command](https://7-zip.opensource.jp/chm/cmdline/commands/bench.htm) for more workloads.
+Please read [b (Benchmark) command](https://7-zip.opensource.jp/chm/cmdline/commands/bench.htm) for more details.

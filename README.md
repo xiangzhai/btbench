@@ -4,7 +4,7 @@ For comparing different binary translators performance in [library wrapping](htt
 
 ## Workloads
 
-`7z`, `dav1d` and `scimark4_c` workloads are able to compare translators JIT compilers performance. And glmark2 mainly compares library wrapping performance.
+@ptitSeb introduced [1](https://box86.org/2023/05/performances2022/)[2](https://archive.fosdem.org/2022/stands.fosdem.org/stands/box86/performances/) `7z`, `dav1d` and `glmark2` benchmarks. While `7z`, `dav1d` and `scimark4_c` workloads are able to compare translators JIT compilers performance. But `glmark2` mainly compares library wrapping performance. There are other benchmarks to compare translator compiler too, such as [scilab benchmark](https://help.scilab.org/bench_run.html).
 
 ## Usage
 
