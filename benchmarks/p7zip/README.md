@@ -1,9 +1,8 @@
-#7z benchmark
+# 7z benchmark
 
 `AESIMC`, `AESENC`, `AESENCLAST`, `AESDEC` and `AESDECLAST` opcodes optimization effect is obvious for AArch64 due to A64 Cryptographic instructions, but AES instructions are not availble for RISCV or LoongArch, so the slow path (jump to native runtime) optimization effect is not obvious for [LoongArch](https://github.com/ptitSeb/box64/pull/2122).
 
 ```
-export BOX64_LD_LIBRARY_PATH="/your/path/x86_64/sysroot"
 /your/path/box64 ./7z b
 /your/path/box64 ./7z b -mm=* -mmt=*
 ```
