@@ -1,0 +1,7 @@
+#btbench
+
+For comparing different binary translators performance in [library wrapping](https://box86.org/2021/08/a-deep-dive-into-library-wrapping/) and translator JIT compilers such as box64 [DynaRec](https://box86.org/2021/07/inner-workings-a-high%e2%80%91level-view-of-box86-and-a-low%e2%80%91level-view-of-the-dynarec/), qemu [TCG](https://www.qemu.org/docs/master/devel/index-tcg.html) and [LATX translator](https://github.com/lat-opensource/lat/tree/master/target/i386/latx/translator).
+
+## Workloads
+
+`7z`, `dav1d` and `scimark4_c` workloads are able to compare translators JIT compilers performance. And glmark2 mainly compares library packaging performance.
