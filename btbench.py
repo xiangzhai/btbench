@@ -62,4 +62,6 @@ if __name__ == '__main__':
     print("btbench %s end" % (tr))
 
     os.system("%s --version" % (tr))
+    os.system("echo `%s --version` >> %s" % (tr, log_file))
+    os.system("echo `cat /proc/cpuinfo` >> %s" % (log_file))
     os.system("/usr/bin/python3 score.py %s" % (log_file))
