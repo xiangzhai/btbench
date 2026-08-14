@@ -1,0 +1,25 @@
+gtkperf (0.40) unstable; urgency=low
+
+  CHANGES:
+  - Allow gtkperf to build on non gcc compilers such as forte. (Brian Nitz)
+  - Patch for automatic test runs from commandline (Brian Nitz)
+  - Improved above patch from Brian, to allow specifying test count from 
+    commandline (Kaj Grönholm)
+
+ -- kaj <kaj@localhost.localdomain>  Sun, 30 Oct 2005 14:06:30 +0200
+
+gtkperf (0.30) unstable; urgency=low
+
+  * Initial public release.
+  * Cleaned code everywhere and added more comments
+  * Removed widget creating tests as results were very similar with each other
+  * Debianized the source
+
+ -- Kaj Grönholm <kaj.gronholm@nomovok.com>  Sat, 30 Apr 2005 23:07:16 +0300 
+
+gtkperf (0.10) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Kaj Grönholm <kaj.gronholm@nomovok.com>  Sat, 30 Apr 2005 19:50:05 +0300
+

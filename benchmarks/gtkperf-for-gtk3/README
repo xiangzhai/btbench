@@ -1,0 +1,126 @@
+GtkPerf
+==========
+
+What?
+GtkPerf is an application designed to test GTK+ performance. The point is to 
+create common testing platform to run predefined GTK+ widgets (opening 
+comboboxes, toggling buttons, scrolling text etc.) and this way define the 
+speed of device/platform.
+
+Why?
+I know that bencmarking tools (including GtkPerf) can be fooled and don't give 
+real-life results. Yet, I belive that GtkPerf can be helpful to solve for 
+example this kind of things:
+
+ * How fast is my software platform compared to others?
+ * How fast is my hardware compared to others?
+ * How fast/slow GTK+ is with different themes?
+ * Is there any notably slow widgets when using my GTK+ theme(engine)?
+ * How much does GTK+ performance increase when moving e.g. from GTK+ 2.4 -> 2.6?
+ * How much does GTK+/GDK perfomance increase when updating X-server?
+ * Can GTK+ be efficiently used in embedded devices?
+
+Tests
+=====
+
+The tests are separate from each other with the same main logic: Making single 
+test operation (opening combo box, drawing n circles, etc.) and waiting for that
+to get processed are returned to g_idle. So every test is jumping between test 
+function and g_idle as fast as possible. 
+
+These tests are provided (in 0.30).
+
+GtkEntry (on_idle_gtkentry_test)
+-----
+Switches between "Test String" and "Longer test string" texts for [count] times.
+
+
+GtkComboBox (on_idle_gtkcombobox_test)
+-----
+GtkComboBox contains 10 entrys "Selection 1"..."Selection 10". This test opens
+and closes GtkComboBox [count] times while selecting next entry.
+
+
+GtkComboBoxEntry (on_idle_gtkcomboboxentry_test)
+-----
+GtkComboBoxEntry contains 10 entrys "Selection 1"..."Selection 10". This test 
+opens and closes GtkComboBoxEntry [count] times while selecting next entry.
+
+
+GtkSpinButton (on_idle_gtkspinbutton_test)
+-----
+GtkSpinButton value is increased with one [count] times. When 1000 is reached,
+value is changed back to 0.
+
+
+GtkProgressBar (on_idle_gtkprogressbar_test)
+-----
+GtkProgressBar is increased with 1% [count] times. Whenever bar gets full,
+its value is set to 0.
+
+
+GtkToggleButton (on_idle_gtktogglebutton_test)
+-----
+GtkToggleButton state is toggled between on/off [count] times.
+
+
+GtkCheckButton (on_idle_gtkcheckbutton_test)
+-----
+GtkCheckButton state is toggled between on/off [count] times.
+
+
+GtkRadioButton (on_idle_gtkradiobutton_test)
+-----
+Two GtkRadioButtons inside same group are witched to be selected alternately
+[count] times.
+
+
+GtkTextView - Add text (on_idle_gtktextview_addtext_test)
+-----
+Text "Future is Open. " is appended to GtkTextView [count] times.
+
+
+GtkTextView - Scroll (on_idle_gtktextview_scroll_test)
+-----
+Scrolls the text added in earlier test GTK_SCROLL_STEP_FORWARD and when end is
+reached GTK_SCROLL_STEP_BACKWARD for [count] times.
+
+
+GtkDrawingArea - Lines (on_idle_gtkdrawingarea_lines_test)
+-----
+Draws random size and color lines to GtkDrawingArea for 1000*[count] times.
+
+
+GtkDrawingArea - Circles (on_idle_gtkdrawingarea_circles_test)
+-----
+Draws random size and color circles to GtkDrawingArea for 1000*[count] times.
+
+
+GtkDrawingArea - Text (on_idle_gtkdrawingarea_text_test)
+-----
+Draws random size and color "Future is Open." strings with PangoLayout to 
+GtkDrawingArea for 100*[count] times. Font used is "Sans Bold 16".
+
+
+GtkDrawingArea - Pixbuf (on_idle_gtkdrawingarea_pixbufs_test)
+-----
+Draws Duck.png to random place in GtkDrawingArea for 10*[count] times.
+
+
+
+maemo
+=====
+
+To make GtkPerf Hildonized" (see http://www.maemo.org) and make it work nicelu in Nokia 770, do this:
+
+1) Enable this line in configure.in:
+#MAEMO_MODULES="libosso hildon-base-lib hildon-lgpl hildon-libs"
+
+2) Enable this line in appdata.h:
+//#define HILDONIZED
+
+Now compile normally and GtkPerf uses maemo-specific changes in code!
+
+
+
+

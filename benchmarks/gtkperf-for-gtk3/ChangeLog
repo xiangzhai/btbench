@@ -1,0 +1,12 @@
+0.40
+====
+- Allow gtkperf to build on non gcc compilers such as forte. (Brian Nitz)
+- Patch for automatic test runs from commandline (Brian Nitz)
+- Improved above patch from Brian, to allow specifying test count from 
+  commandline (Kaj Grönholm)
+
+0.30
+====
+- Initial public release
+- Cleaned code
+- Removed widget creating tests as results were very similar with each other

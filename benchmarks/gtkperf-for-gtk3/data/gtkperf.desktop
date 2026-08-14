@@ -1,0 +1,8 @@
+[Desktop Entry] 
+Encoding=UTF-8 
+Version=1.0 
+Type=Application 
+Name=GtkPerf
+Exec=/usr/bin/gtkperf
+X-Osso-Service=com.nomovok.gtkperf
+Icon=qgn_list_gene_default_app

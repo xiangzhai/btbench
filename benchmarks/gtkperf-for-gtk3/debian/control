@@ -1,0 +1,13 @@
+Source: gtkperf
+Section: unknown
+Priority: optional
+Maintainer: Kaj Grönholm <kaj.gronholm@nomovok.com>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.0
+
+Package: gtkperf
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GtkPerf performance testing application
+ This application is an easy way to measure GTK+/GDK performance of the 
+ device/system.
