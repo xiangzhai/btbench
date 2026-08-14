@@ -1,0 +1,79 @@
+libCairo GUI Drawing Performance Testing
+========================================
+
+While optimizing the http://ardour.org DAW, we noticed that idle-calls on the OSX GUI
+are a lot less frequent (every 30-40ms, sometimes stalls > 500ms), while on Linux
+and Windows they arrive in < 2ms intervals.
+
+The problem turned out that rendering the GUI on OSX takes a very long time, usually
+less than 1ms with Linux/XCB,  about 1-2ms on Windows  but 20ms with OSX/Quartz.
+
+The bottleneck is in Apple's Coregraphics
+
+  * argb32_image_mark_RGB32 
+  * CGSColorMaskCopyARGB8888_sse
+
+
+The tools in this folder are for diagnostic purposes to investigate the situation.
+
+  * a simple Cocoa objc application, rendering directly to a `NSGraphicsContext`
+    using   `cairo_quartz_surface_create_for_cg_context`
+
+  * a gtkmm-2.4 C++ application (x-platform) using gdk's cairo abstraction
+    (on OSX  also   `cairo_quartz_surface_create_for_cg_context`)
+
+  * a headless commandline tool using `cairo_image_surface_create`
+    (100 render iterations)
+
+
+```
+# compile the gtk app and run it (need gtkmm-2.4, x-platform)
+make run_gtk
+
+# compile the OSX/Cocoa app and run it (need cairo glib-2.0, [mac]OS[X] only)
+make run_cg
+
+# compile and run the image-surface test (cairo glib-2.0, x-platform)
+make run_img
+```
+
+
+Results using cairo-1.14.8, average rendering-time per frame
+             
+ GTK Linux/XCB        0.197 msec
+ GTK OSX 10.10.5      7.4   msec  (37.5 times slower than Linux/XCB)
+ Cocoa OSX 10.10.5    7.5   msec  (38.0 times slower than Linux/XCB)
+
+ GTK OSX 10.6.8       8.9   msec 
+ Cocoa OSX 10.6.8     9.2   msec 
+
+
+ ImageSurface Linux           3.287 msec
+ ImageSurface OSX 10.10.5     4.591 msec  (1.39 slower than Linux-PC)
+
+
+
+Linux Box is Thinkpad X250 i7-5600U 2.60GHz, Intel HD Graphics 5500, running debian/testing.
+
+OSX 10.10 in on a MacBookPro (Retina) i5 2.60GHz, Intel Iris
+(using screen's color profile "LCD", changing this to "RGB" or "sRGB" makes no difference),
+nor does retina-scaling affect the result much.  +/- 0.2 msec
+
+OSX 10.6.8 runs an Mac Mini, i5 2.6GHz
+
+
+---
+
+WORKAROUND: in Ardour's case where many cached image-surfaces and patterns
+are composed, wrapping the complete expose-event in 
+```
+cairo_push_group();
+...
+cairo_pop_group_to_source();
+cairo_paint();
+```
+helps a great deal. This avoid expensive argb32_image_mark_image() during drawing,
+Although the final paint() call is still slow.
+Profiling Ardour indicates a speed up of factor about 2
+(~ 5-10ms render time on OSX, instead of 10-20ms  -- 
+still slow compared to the ~0.2 ms on Linux/XCB)
